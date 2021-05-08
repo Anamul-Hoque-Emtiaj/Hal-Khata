@@ -1,12 +1,12 @@
 const loginValidate = require('../validators/loginValidator')
-const {resourceError,serverError} = require('../utils/error')
+const {serverError} = require('../utils/error')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/userModel')
 
 const login = (req,res)=>{
-    let {name,email,password} = req.body
-    let validate = loginValidate({name,email,password})
+    let {email,password} = req.body
+    let validate = loginValidate({email,password})
     if(!validate.isValid){
         return res.status(500).json(validate.errors)
     }
@@ -15,7 +15,10 @@ const login = (req,res)=>{
             return serverError(res,err)
         }
         if(!user){
-            return resourceError(res,'User does not exist.Please Registered first')
+
+            return res.status(500).json({
+                email: 'User does not exist.Please Registered first'
+            })
         }
         else{
             bcrypt.compare(password, user.password, (err, result)=> {
@@ -23,7 +26,10 @@ const login = (req,res)=>{
                     return serverError(res,err)
                 }
                 if(!result){
-                    return resourceError(res,'Password Doesn\'t match')
+
+                    return res.status(500).json({
+                        password: 'Password Doesn\'t match'
+                    })
                 }
                 else{
                     let token = jwt.sign({
@@ -33,8 +39,7 @@ const login = (req,res)=>{
                     },'SECRET',{expiresIn: '1h'})
                     res.status(200).json({
                         message: "Log in Succesfull",
-                        token,
-                        user
+                        token
                     })
                 }
             });

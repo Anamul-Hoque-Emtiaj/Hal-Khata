@@ -2,10 +2,6 @@ const validator = require('validator')
 const loginValidate = user =>{
     const errors={};
     var temp = true
-    if(!user.name){
-        errors.name='Please provide your name'
-        temp=false
-    }
     if(!user.email){
         errors.email='Please provide your email'
         temp=false

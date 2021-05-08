@@ -19,7 +19,7 @@ const registerValidate = user =>{
         temp=false
     }
     else if(user.password.length <6){
-        errors.password='Please provide a password which is greter than or equal 6'
+        errors.password='Please provide a password greter than or equal 6'
         temp=false
     }
     if(!user.confirmPassword){

@@ -1,5 +1,5 @@
 const registerValidate = require('../validators/registerValidator')
-const {resourceError,serverError} = require('../utils/error')
+const {serverError} = require('../utils/error')
 const bcrypt = require('bcrypt');
 const User = require('../models/userModel')
 
@@ -14,7 +14,9 @@ const register = (req,res)=>{
             return serverError(res,err)
         }
         if(user){
-            return resourceError(res,'User already exist')
+            return res.status(500).json({
+                email: "User already exist"
+            })
         }
     })
     bcrypt.hash(password, 10, (err, hash)=> {

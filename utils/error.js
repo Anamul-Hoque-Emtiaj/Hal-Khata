@@ -5,9 +5,4 @@ module.exports={
             message: "Server Error"
         })
     },
-    resourceError(res,message){
-        res.status(402).json({
-            message
-        })
-    }
 }
