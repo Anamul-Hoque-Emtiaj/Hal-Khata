@@ -30,7 +30,7 @@ const register = (req,res)=>{
                 password: hash,
                 income: 0,
                 expense: 0,
-                amount: 0,
+                balance: 0,
                 transactions:[]
             })
             user.save(err=>{

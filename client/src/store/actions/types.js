@@ -1,3 +1,7 @@
 export const LOGIN_USER = 'LOGIN_USER'
 export const LOGOUT_USER = 'LOGOUT_USER'
 export const USER_ERRORS = 'USER_ERRORS'
+export const GET_USER = 'GET_USER'
+export const GET_TRANSACTIONS = 'GET_TRANSACTIONS'
+export const TRANSACTION_ERRORS = 'TRANSACTION_ERRORS'
+export const GET_USER_ERRORS = 'GET_USER_ERRORS'

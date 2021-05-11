@@ -36,10 +36,10 @@ const login = (req,res)=>{
                         _id: user._id,
                         name: user.name,
                         email: user.email
-                    },'SECRET',{expiresIn: '1h'})
+                    },'SECRET',{expiresIn: '24h'})
                     res.status(200).json({
                         message: "Log in Succesfull",
-                        token
+                        token:`Bearer ${token}`
                     })
                 }
             });
