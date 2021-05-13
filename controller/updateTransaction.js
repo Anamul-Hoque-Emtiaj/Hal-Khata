@@ -38,13 +38,13 @@ const update=(req,res)=>{
                 updatedUser.balance=updatedUser.balance+transaction.amount
                 updatedUser.expense=updatedUser.expense-transaction.amount
             }
-            if(type=='income'){
-                updatedUser.balance=updatedUser.balance+amount
-                updatedUser.income=updatedUser.income+amount
+            if(updatedTransaction.type=='income'){
+                updatedUser.balance=updatedUser.balance+updatedTransaction.amount
+                updatedUser.income=updatedUser.income+updatedTransaction.amount
             }
-            else if(type=='expense'){
-                updatedUser.balance=updatedUser.balance-amount
-                updatedUser.expense=updatedUser.expense+amount
+            else if(updatedTransaction.type=='expense'){
+                updatedUser.balance=updatedUser.balance-updatedTransaction.amount
+                updatedUser.expense=updatedUser.expense+updatedTransaction.amount
             }
             User.findByIdAndUpdate(transaction.author,{$set:updatedUser},{new:true})
             .then(()=>{

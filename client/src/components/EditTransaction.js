@@ -68,7 +68,7 @@ class EditTransaction extends Component {
                 <form onSubmit={this.submitHandler}>
                         <div className="form-group py-1">
                             <label htmlFor="amount" className="d-block py-2">Amount:</label>
-                             <input type="text" className={error.amount?'form-control is-invalid': 'form-control'} 
+                             <input type="number" className={error.amount?'form-control is-invalid': 'form-control'} 
                              onChange={this.changeHandler} name="amount" placeholder="Enter Amount" id="amount" value={amount} />
                             {error.amount && <div className='invalid-feedback'>{error.amount}</div>}
                         </div>
