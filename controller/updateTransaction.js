@@ -33,22 +33,22 @@ const update=(req,res)=>{
             if(transaction.type=='income'){
                
                 if(updatedTransaction.type=='income'){
-                    updatedUser.balance=updatedUser.balance+updatedTransaction.amount-transaction.amount
-                    updatedUser.income=updatedUser.income+updatedTransaction.amount-transaction.amount
+                    updatedUser.balance=user.balance+updatedTransaction.amount-transaction.amount
+                    updatedUser.income=user.income+updatedTransaction.amount-transaction.amount
                 }
                 else if(updatedTransaction.type=='expense'){
-                    updatedUser.balance=updatedUser.balance-updatedTransaction.amount-transaction.amount
-                    updatedUser.expense=updatedUser.expense+updatedTransaction.amount
+                    updatedUser.balance=user.balance-updatedTransaction.amount-transaction.amount
+                    updatedUser.expense=user.expense+updatedTransaction.amount
                 }
             }
             else if(transaction.type=='expense'){
                 if(updatedTransaction.type=='income'){
-                    updatedUser.balance=updatedUser.balance+updatedTransaction.amount+transaction.amount
-                    updatedUser.income=updatedUser.income+updatedTransaction.amount
+                    updatedUser.balance=user.balance+updatedTransaction.amount+transaction.amount
+                    updatedUser.income=user.income+updatedTransaction.amount
                 }
                 else if(updatedTransaction.type=='expense'){
-                    updatedUser.balance=updatedUser.balance-updatedTransaction.amount+transaction.amount
-                    updatedUser.expense=updatedUser.expense+updatedTransaction.amount-transaction.amount
+                    updatedUser.balance=user.balance-updatedTransaction.amount+transaction.amount
+                    updatedUser.expense=user.expense+updatedTransaction.amount-transaction.amount
                 }
             }
             User.findByIdAndUpdate(transaction.author,{$set:updatedUser},{new:true})

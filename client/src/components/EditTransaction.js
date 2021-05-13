@@ -18,7 +18,7 @@ const customStyles = {
 class EditTransaction extends Component {
 
     state={
-        amount: "",
+        amount: null,
         type: "",
         note: "",
         error: {}

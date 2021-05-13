@@ -18,7 +18,7 @@ const customStyles = {
 class CreateNewTransaction extends Component {
 
     state={
-        amount: "",
+        amount: null,
         type: "",
         note: "",
         error: {}
@@ -44,7 +44,7 @@ class CreateNewTransaction extends Component {
         let author = this.props.auth.user._id
         this.props.createTransaction({amount,type,note,author})
         this.setState({
-            amount: "",
+            amount: null,
             type: "",
             note: "",
             error: {}
