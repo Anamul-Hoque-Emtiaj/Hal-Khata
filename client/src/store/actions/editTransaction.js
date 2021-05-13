@@ -13,8 +13,13 @@ const editTransaction = (id,transaction) => dispatch =>{
             }
         })
     })
-    .catch(()=>{
-        
+    .catch(error=>{
+        dispatch({
+            type: Types.TRANSACTION_ERRORS,
+            payload:{
+                error: error.response.data
+            }
+        })
     })
 }
 

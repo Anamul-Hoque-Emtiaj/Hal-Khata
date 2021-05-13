@@ -50,12 +50,7 @@ class EditTransaction extends Component {
         let {amount,type,note} = this.state
         let id=this.props.transaction._id
         this.props.editTransaction(id,{amount,type,note})
-        this.setState({
-            amount: "",
-            type: "",
-            note: "",
-            error: {}
-        })
+        console.log(this.props)
         this.props.close()
     }
      

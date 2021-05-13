@@ -1,2 +1,2 @@
 # Hal-Khata
-A full stack MERN project for money management. Anyone can keep their calculations of income and expense by creating an account here.
+A MERN stack project for Money management. By creating an acount here, anyone can save his/her income-expense information and find out his/her total income,expense,balance easily.

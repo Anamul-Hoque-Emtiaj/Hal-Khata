@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import getTransactions from '../store/actions/getTransactions'
 import CreateNewTransaction from './CreateNewTransaction'
+import EditTransaction from './EditTransaction'
 import deleteAllTransaction from '../store/actions/deleteAllTransaction'
 import deleteTransaction from '../store/actions/deleteTransaction'
 
@@ -12,7 +13,7 @@ class Dashboard extends Component {
         sort: 'latest',
         createModalOpen: false,
         updateModalOpen: false,
-        id:""
+        id: ''
     }
 
     openCreateModal = ()=>{
@@ -37,7 +38,7 @@ class Dashboard extends Component {
     closeUpdateModal = ()=>{
         this.setState({
             updateModalOpen: false,
-            id:''
+            id: ''
         })
     }
 
@@ -101,13 +102,19 @@ class Dashboard extends Component {
                         this.state.sort==='latest'?
                        
                             transactions.map(filterTransactions=>
-                            {
-                                return(
+                            ( 
                                     <tr
                                         key={filterTransactions._id}
                                         className={filterTransactions.type==='income'?
                                         'table-primary':'table-success'}
                                      >
+                                         {this.state.id===filterTransactions._id ?
+                                            <EditTransaction
+                                            isOpen={this.state.updateModalOpen}
+                                            close={this.closeUpdateModal}
+                                            transaction={filterTransactions}
+                                        /> : null
+                                            }
                                         <td>{filterTransactions.updatedAt.slice(0,10)}</td>
                                         <td>
                                             {filterTransactions.type==='income' ? <span> Earn </span> : 
@@ -117,27 +124,39 @@ class Dashboard extends Component {
                                                 <span> tk for </span>}
                                             {filterTransactions.note}</td>
                                         <td>
+                                            <button className='btn btn-warning mx-3'
+                                                onClick={()=>this.openUpdateModal(filterTransactions._id)}
+                                            >Edit</button>
                                             <button className='btn btn-danger'
                                                 onClick={()=>this.props.deleteTransaction(filterTransactions._id)}
                                             >Delete</button>
                                         </td>
                                     </tr>
                                 )
-                            })
+                            )
                         
                         : this.state.sort==='income' ?
                       
                             transactions.filter(trans=> trans.type==='income').map(filterTransactions=>
-                            {
-                                 return(
+                            (
                                     <tr
                                         key={filterTransactions._id}
                                         className='table-primary'
                                      >
+                                         {this.state.id===filterTransactions._id ?
+                                            <EditTransaction
+                                            isOpen={this.state.updateModalOpen}
+                                            close={this.closeUpdateModal}
+                                            transaction={filterTransactions}
+                                        /> : null
+                                            }
                                     
                                         <td>{filterTransactions.updatedAt.slice(0,10)}</td>
                                         <td>Earn {filterTransactions.amount} tk from {filterTransactions.note}</td>
                                         <td>
+                                            <button className='btn btn-warning mx-3'
+                                                onClick={()=>this.openUpdateModal(filterTransactions._id)}
+                                            >Edit</button>
                                             <button className='btn btn-danger'
                                                 onClick={()=>this.props.deleteTransaction(filterTransactions._id)}
                                             >Delete</button>
@@ -145,26 +164,36 @@ class Dashboard extends Component {
                                     </tr>
                                 )
                                 
-                                })
+                                )
                             :
                        
                             transactions.filter(trans=> trans.type==='expense').map(filterTransactions=>
-                            {
-                               return(
+                           (
+                                
                                     <tr
                                         key={filterTransactions._id}
                                         className='table-success'
                                     >
+                                        {this.state.id===filterTransactions._id ?
+                                            <EditTransaction
+                                            isOpen={this.state.updateModalOpen}
+                                            close={this.closeUpdateModal}
+                                            transaction={filterTransactions}
+                                        /> : null
+                                            }
                                         <td>{filterTransactions.updatedAt.slice(0,10)}</td>
                                         <td>Spend {filterTransactions.amount} tk for {filterTransactions.note}</td>
                                         <td>
+                                            <button className='btn btn-warning mx-3'
+                                                onClick={()=>this.openUpdateModal(filterTransactions._id)}
+                                            >Edit</button>
                                             <button className='btn btn-danger'
                                                 onClick={()=>this.props.deleteTransaction(filterTransactions._id)}
                                             >Delete</button>
                                         </td>
                                     </tr>
                                 )
-                            })
+                            )
                     }
                     </tbody>
                     </table>
