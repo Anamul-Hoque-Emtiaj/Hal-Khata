@@ -31,20 +31,25 @@ const update=(req,res)=>{
             Transaction.findByIdAndUpdate(transactionId,{$set:updatedTransaction},{new:true})
             .then(()=>{
             if(transaction.type=='income'){
-                updatedUser.balance=updatedUser.balance-transaction.amount
-                updatedUser.income=updatedUser.income-transaction.amount
+               
+                if(updatedTransaction.type=='income'){
+                    updatedUser.balance=updatedUser.balance+updatedTransaction.amount-transaction.amount
+                    updatedUser.income=updatedUser.income+updatedTransaction.amount-transaction.amount
+                }
+                else if(updatedTransaction.type=='expense'){
+                    updatedUser.balance=updatedUser.balance-updatedTransaction.amount-transaction.amount
+                    updatedUser.expense=updatedUser.expense+updatedTransaction.amount
+                }
             }
             else if(transaction.type=='expense'){
-                updatedUser.balance=updatedUser.balance+transaction.amount
-                updatedUser.expense=updatedUser.expense-transaction.amount
-            }
-            if(type=='income'){
-                updatedUser.balance=updatedUser.balance+amount
-                updatedUser.income=updatedUser.income+amount
-            }
-            else if(type=='expense'){
-                updatedUser.balance=updatedUser.balance-amount
-                updatedUser.expense=updatedUser.expense+amount
+                if(updatedTransaction.type=='income'){
+                    updatedUser.balance=updatedUser.balance+updatedTransaction.amount+transaction.amount
+                    updatedUser.income=updatedUser.income+updatedTransaction.amount
+                }
+                else if(updatedTransaction.type=='expense'){
+                    updatedUser.balance=updatedUser.balance-updatedTransaction.amount+transaction.amount
+                    updatedUser.expense=updatedUser.expense+updatedTransaction.amount-transaction.amount
+                }
             }
             User.findByIdAndUpdate(transaction.author,{$set:updatedUser},{new:true})
             .then(()=>{
