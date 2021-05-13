@@ -33,9 +33,9 @@ class register extends Component {
     render() {
         let {name,email,password,confirmPassword,error} = this.state
         return (
-            <div >
-                <h1 className="text-center me-2 p-2">Register Here</h1>
-                <div className='p-5 me-10'>
+            <div className="container">
+                <h1 className="text-center p-5">Register Here</h1>
+                <div className='m-3 p-2 w-75'>
                     <form onSubmit={this.submitHandler}>
                         <div className="form-group py-1">
                             <label  htmlFor="name" className="d-block py-2">Name:</label>

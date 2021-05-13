@@ -15,10 +15,6 @@ const validator = user =>{
         errors.note="Please provide transaction short note",
         temp = false
     }
-    if(!user.author){
-        errors.author="Author not found",
-        temp = false
-    }
     return{
         errors,
         isValid:temp

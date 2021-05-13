@@ -5,12 +5,11 @@ const User = require('../models/userModel')
 
 const update=(req,res)=>{
     let transactionId = req.params.id
-    let {amount,type,note,author}= req.body
-    let validate = validator({amount,type,author,note})
+    let {amount,type,note}= req.body
+    let validate = validator({amount,type,note})
     if(!validate.isValid){
         return res.status(500).json(validate.errors)
     }
-    let updatedTransaction={amount,type,note,author}
     Transaction.findById(transactionId,(err,transaction)=>{
         if(err){
             return serverError(res,err)
@@ -20,6 +19,10 @@ const update=(req,res)=>{
                 message:"No transaction found"
             })
         }
+        let updatedTransaction={...transaction._doc}
+        updatedTransaction.amount=amount
+        updatedTransaction.type=type
+        updatedTransaction.note=note
         User.findById(transaction.author,(err,user)=>{
             if(err){
                 return serverError(res,err)
@@ -46,7 +49,9 @@ const update=(req,res)=>{
             User.findByIdAndUpdate(transaction.author,{$set:updatedUser},{new:true})
             .then(()=>{
                 res.status(201).json({
-                    message: "Update successful"
+                    message: "Update successful",
+                    transaction: updatedTransaction,
+                    user: updatedUser
                 })
             }).catch(err=>{
                 serverError(res,err)

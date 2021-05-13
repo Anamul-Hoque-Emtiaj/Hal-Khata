@@ -30,11 +30,13 @@ const remove = (req,res) =>{
                     updatedUser.balance=updatedUser.balance+transaction.amount
                     updatedUser.expense=updatedUser.expense-transaction.amount
                 }
-                updatedUser.transactions.filter(element=> element!=transaction._id)
+                updatedUser.transactions=updatedUser.transactions.filter(element=> element!==transaction._id)
                 User.findByIdAndUpdate(transaction.author,{$set:updatedUser},{new:true})
                 .then(()=>{
                     res.status(201).json({
-                        message:"Deleted Successfully"
+                        message:"Deleted Successfully",
+                        user: updatedUser,
+                        transaction
                     })
                 })
                 .catch(err=>{

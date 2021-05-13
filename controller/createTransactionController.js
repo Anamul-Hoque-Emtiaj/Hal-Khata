@@ -30,7 +30,9 @@ const create = (req,res) =>{
             User.findByIdAndUpdate(author,{$set:updateUser},{new:true})
             .then(()=>{
                 res.status(201).json({
-                    message:"Transaction Successfull"
+                    message: "Transaction created successfully",
+                    transaction: trans,
+                    user: updateUser
                 })
             }).catch(err=>{
                 serverError(res,err)

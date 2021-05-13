@@ -1,21 +1,28 @@
 const {serverError} = require('../utils/error')
 const Transaction = require('../models/transactionModel')
+const User = require('../models/userModel')
 
 const getUserTransactions = (req,res) =>{
     let userId = req.params.id
-   Transaction.find((err,transactions)=>{
-       if(err){
-           return serverError(res,err)
-       }
-       if(transactions.length==0){
-        return res.status(500).json({
-            message: "No transaction found"
+    User.findById(userId,(err,user)=>{
+        if(err){
+            return serverError(res,err)
+        }
+        Transaction.find((err,transactions)=>{
+            if(err){
+                return serverError(res,err)
+            }
+            let updatedTransactions=[]
+            transactions.map(transaction=>{
+                if(transaction.author==userId){
+                    updatedTransactions.unshift(transaction)
+                }
+            })
+            res.status(202).json({
+               transactions: updatedTransactions,
+               user
+            })
         })
-    }
-       res.status(202).json(transactions.filter(transaction=>{
-           return userId==transaction.author
-       }))
-   })
+    })
 }
-
 module.exports = getUserTransactions;

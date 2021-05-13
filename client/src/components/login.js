@@ -30,9 +30,9 @@ class login extends Component {
     render() {
         let {email,password,error} = this.state
         return (
-            <div className="container">
-                <h1 className="text-center me-2 p-2">Login Here</h1>
-                <div className='p-5 me-10'>
+            <div className="container m-3 p-3">
+                <h1 className="text-center mt-5">Login Here</h1>
+                <div className='m-5 p-5 w-75'>
                     <form onSubmit={this.submitHandler}>
                         <div className="form-group py-1">
                             <label htmlFor="email" className="d-block py-2">Email:</label>

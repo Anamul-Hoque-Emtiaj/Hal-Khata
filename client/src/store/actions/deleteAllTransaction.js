@@ -1,13 +1,12 @@
 import * as Types from './types'
 import axios from 'axios'
 
-const getTransactions = userId =>dispatch=>{
-    axios.get(`/api/transactions/${userId}`)
+const deleteAllTransaction = userId=>dispatch=>{
+    axios.delete(`/api/transactions/user/${userId}`)
     .then(res=>{
         dispatch({
-            type: Types.GET_TRANSACTIONS,
+            type: Types.DELETE_ALL_TRANSACTIONS,
             payload:{
-                transactions: res.data.transactions,
                 user: res.data.user
             }
         })
@@ -16,5 +15,4 @@ const getTransactions = userId =>dispatch=>{
         
     })
 }
-
-export default getTransactions;
+export default deleteAllTransaction;

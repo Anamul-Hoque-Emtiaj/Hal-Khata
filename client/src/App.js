@@ -5,19 +5,21 @@ import Home from './components/home'
 import Login from './components/login'
 import Register from './components/register'
 import Dashboard from './components/Dashboard'
-
+import Footer from './components/Footer'
+import Navber from './components/Navber'
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="container">
-        <h1>I am Frontend</h1>
+      <div>
+      <Navber />
         <Switch>
             <Route path='/' exact component={Home} />
             <Route path='/login'  component={Login} />
             <Route path='/register' component={Register} />
             <Route path='/dashboard' component={Dashboard} />
         </Switch>
+        <Footer />
      </div>
     </BrowserRouter>
   );

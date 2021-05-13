@@ -33,7 +33,8 @@ const deleteAllTransaction = (req,res)=>{
         User.findByIdAndUpdate(updatedUser._id,{$set:updatedUser},{new:true})
         .then(()=>{
             res.status(202).json({
-                message: "Deleted all Transactions Successfully"
+                message: "Deleted all Transactions Successfully",
+                user: updatedUser
             })
         }).catch(err=>{
             serverError(res,err)
