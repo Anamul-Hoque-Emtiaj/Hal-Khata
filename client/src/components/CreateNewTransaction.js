@@ -42,7 +42,7 @@ class CreateNewTransaction extends Component {
         let {amount,type,note} = this.state
         let author = this.props.auth.user._id
         this.props.createTransaction({amount,type,note,author})
-        if(Object.keys(this.state.error).length === 0){
+        if(JSON.stringify(this.state.error)===JSON.stringify({})){
             this.setState({
                 amount: null,
                 type: "",
