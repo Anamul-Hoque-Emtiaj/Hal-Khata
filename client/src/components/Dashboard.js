@@ -59,16 +59,17 @@ class Dashboard extends Component {
     render() {
         
         let {user,transactions} = this.props.transactionReducer
+        let userInfo = this.props.auth.user
         return (
             
             <div>
                 <h1 className='text-center p-3'>Welcome to your Dashboard</h1>
                 <div className="container p-5">
                         <div className="pb-2">
-                            <span className='fw-bold m-1'>Name: </span> <span>{user.name}</span>
+                            <span className='fw-bold m-1'>Name: </span> <span>{userInfo.name}</span>
                         </div>
                         <div className="pb-2">
-                            <span className='fw-bold m-1'>Email: </span> <span>{user.email}</span>
+                            <span className='fw-bold m-1'>Email: </span> <span>{userInfo.email}</span>
                         </div>
                         <div className="pb-2">
                             <span className='fw-bold m-1'>Income: </span> <span>{user.income}</span>
@@ -80,9 +81,10 @@ class Dashboard extends Component {
                              <span className='fw-bold m-1'>Balance: </span> <span>{user.balance}</span>
                         </div>
                 </div>
-                <h3 className='text-center p-3'>Your Transactions</h3>
+                <div className='container'>
+                 <h3 className='text-center p-3'>Your Transactions</h3>
 
-                <table class="table table-hover mx-5">
+                <table class="table table-hover mx-2">
                     <thead className="thead-light">
                         <tr>
                             <th>Date</th>
@@ -100,15 +102,15 @@ class Dashboard extends Component {
                     <tbody>
                     {
                         this.state.sort==='latest'?
-                       
+                    
                             transactions.map(filterTransactions=>
                             ( 
                                     <tr
                                         key={filterTransactions._id}
                                         className={filterTransactions.type==='income'?
                                         'table-primary':'table-success'}
-                                     >
-                                         {this.state.id===filterTransactions._id ?
+                                    >
+                                        {this.state.id===filterTransactions._id ?
                                             <EditTransaction
                                             isOpen={this.state.updateModalOpen}
                                             close={this.closeUpdateModal}
@@ -136,14 +138,14 @@ class Dashboard extends Component {
                             )
                         
                         : this.state.sort==='income' ?
-                      
+                    
                             transactions.filter(trans=> trans.type==='income').map(filterTransactions=>
                             (
                                     <tr
                                         key={filterTransactions._id}
                                         className='table-primary'
-                                     >
-                                         {this.state.id===filterTransactions._id ?
+                                    >
+                                        {this.state.id===filterTransactions._id ?
                                             <EditTransaction
                                             isOpen={this.state.updateModalOpen}
                                             close={this.closeUpdateModal}
@@ -166,9 +168,9 @@ class Dashboard extends Component {
                                 
                                 )
                             :
-                       
+                    
                             transactions.filter(trans=> trans.type==='expense').map(filterTransactions=>
-                           (
+                        (
                                 
                                     <tr
                                         key={filterTransactions._id}
@@ -205,6 +207,7 @@ class Dashboard extends Component {
                         <button className='btn btn-success m-2' onClick={this.openCreateModal}>Create New Transaction</button>
                         <button className='btn btn-danger m-2' onClick={this.deleteAll}>Delete all Transaction</button>
                     </div>
+                </div>
                 </div>
         );
     }

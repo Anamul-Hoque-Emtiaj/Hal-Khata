@@ -10,8 +10,7 @@ const customStyles = {
       right                 : 'auto',
       bottom                : 'auto',
       marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)',
-      width                 : '500px'
+      transform             : 'translate(-50%, -50%)'
     }
   };
 
@@ -50,14 +49,21 @@ class EditTransaction extends Component {
         let {amount,type,note} = this.state
         let id=this.props.transaction._id
         this.props.editTransaction(id,{amount,type,note})
-        console.log(this.props)
-        this.props.close()
+        if(Object.keys(this.state.error).length === 0){
+            this.setState({
+                amount: null,
+                type: "",
+                note: "",
+                error: {}
+            })
+            this.props.close()
+        }
     }
      
     render() {
         let {amount,note,error}= this.state
         return (
-            <div>
+            <div className='container'>
                 <Modal
                 isOpen={this.props.isOpen}
                 onRequestClose={this.props.close}

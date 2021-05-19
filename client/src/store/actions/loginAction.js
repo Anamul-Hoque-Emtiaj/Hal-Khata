@@ -10,7 +10,6 @@ const loginAction = (user,history) => dispatch=>{
         localStorage.setItem('auth_token',token)
         setAuthHeader(token)
         let decode = jwtDecode(token)
-        console.log(decode)
         dispatch({
             type: Types.LOGIN_USER,
             payload:{
